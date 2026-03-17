@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@vercel/analytics/react"
 import { StructuredData } from "@/components/seo/structured-data"
+import { GoogleAnalytics } from "@/components/google-analytics"
 import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -69,7 +70,6 @@ export const metadata = {
   },
   verification: {
     google: "your-google-verification-code",
-    // Add other verification codes as needed
   },
     generator: 'v0.app'
 }
@@ -82,18 +82,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BGBF4HHXLG"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-BGBF4HHXLG');
-            `,
-          }}
-        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#ef4444" />
         <link rel="icon" href="/images/book-cover.png" />
@@ -113,6 +101,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             {children}
             <StructuredData />
+            <GoogleAnalytics />
           </ThemeProvider>
           <Analytics />
         </Suspense>
